@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import './Assemblyapp.css'
-import Heading from "./AssemblyApp/Heading.Jsx"
+import Heading from "./AssemblyApp/Head.jsx"
 import { Languages } from "./AssemblyApp/LanguagesData.jsx"
 import { getFarewellText } from "./AssemblyApp/Utils.jsx"
 import { generateCurrentWord } from "./AssemblyApp/Utils.jsx"
