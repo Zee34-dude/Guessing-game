@@ -1,5 +1,4 @@
 import React from "react"
-import Heading from "./AssemblyApp/Heading.jsx"
 import clsx from "clsx"
 import './Assemblyapp.css'
 import { Languages } from "./AssemblyApp/LanguagesData.jsx"
