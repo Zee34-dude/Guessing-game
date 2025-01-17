@@ -51,7 +51,7 @@ export default function Countdown(props) {
         {minutes.toString().padStart(2, '0')}:
         {seconds.toString().padStart(2, '0')}
       </h1>
-      <button onClick={handleStart}>Start Timer</button>
+      <button className='start-game' onClick={handleStart}>Start Timer</button>
     </div>
   )
 }
