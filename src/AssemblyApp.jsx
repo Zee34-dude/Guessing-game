@@ -11,6 +11,7 @@ export default function AssemblyApp() {
   //state values
   const [currentWord, setCurrentWord] = React.useState(() => generateCurrentWord())
   const [guessArray, setGuessArray] = React.useState([])
+  const [determinant, setDeterminant] = React.useState(false)
   //Derived Values
   const wrongGuess = guessArray.filter((letter, index) => {
     return !currentWord.includes(letter)
@@ -20,8 +21,8 @@ export default function AssemblyApp() {
   const [resetTIme, setResetTime] = React.useState(false)
   const numGuessleft = (Languages.length - 1) - wrongGuess.length
   const isGameWon = currentWord.split('').every((letter) => guessArray.includes(letter))
-  const isGameLost = wrongGuess.length >= Languages.length - 1|| timeUp
-  const isGameOver = isGameLost || isGameWon 
+  const isGameLost = wrongGuess.length >= Languages.length - 1 || timeUp
+  const isGameOver = isGameLost || isGameWon
   const lastGuessLetter = guessArray[guessArray.length - 1]
 
   // let indexes=wrongGuess.map((n,index)=>index)
@@ -40,7 +41,7 @@ export default function AssemblyApp() {
     return (
       <button
         className={className}
-        key={language.name}
+        key={language.id}
         style={{
           backgroundColor: language.backgroundColor,
           color: language.color
@@ -71,6 +72,9 @@ export default function AssemblyApp() {
   )
   function getLetters(letter) {
     setGuessArray((prevLetters) => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter])
+
+    !currentWord.split('').includes(letter) ? setDeterminant(true) : setDeterminant(false)
+
   }
   function handleState(seconds, minutes) {
     if (seconds == 0 && minutes == 0) {
@@ -116,6 +120,7 @@ export default function AssemblyApp() {
     setResetTime(true)
     setTimeUp(false)
   }
+  console.log(determinant)
   return (
     <>
       {isGameWon && <Confetti
@@ -143,12 +148,16 @@ export default function AssemblyApp() {
             : isGameLost ?
               <div className="lose-bar">
                 <p>You Lose!</p>
-                <p>Nothing for you!</p>
-              </div>
+                <p>Better luck next time!</p>
+              </div> :
+              determinant && <div className="farewell">{
+                getFarewellText()
 
-              :
-              wrongGuess.length == 0 ? '' : <div className="farewell">{getFarewellText(Languages[wrongGuess.length - 1].name)}</div>
+              }</div>
         }
+
+
+
 
       </section>
       <div className="languageList">
